@@ -91,7 +91,13 @@ public class Tesseract extends BufferedImage {
 
         g.setColor(Color.black);
 
-        double[][] verticesNew = vertices;
+        double[][] verticesNew = new double[vertices.length][];
+        for (int i = 0; i < vertices.length; i++) {
+            verticesNew[i] = new double[vertices[i].length];
+            for (int j = 0; j < vertices[i].length; j++) {
+                verticesNew[i][j] = vertices[i][j];
+            }
+        }
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (rotation[i][j] == 0d) {
