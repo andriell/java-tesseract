@@ -114,9 +114,10 @@ public class MainFrame {
                             slider32.getValue()
                     );
                     File outputFile = new File(fileName);
-                    outputFile.getParentFile().mkdirs();
                     ImageIO.write(bi, "png", outputFile);
-                } catch (Exception e2) {}
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
             }
         });
 
