@@ -113,7 +113,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Вращение XY"/>
+              <text value="Rotation XY"/>
             </properties>
           </component>
           <component id="744d1" class="javax.swing.JLabel" binding="value01">
@@ -129,7 +129,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Вращение XZ"/>
+              <text value="Rotation XZ"/>
             </properties>
           </component>
           <component id="aa28d" class="javax.swing.JLabel" binding="value02">
@@ -145,7 +145,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Вращение YZ"/>
+              <text value="Rotation YZ"/>
             </properties>
           </component>
           <component id="e6ce0" class="javax.swing.JLabel" binding="value12">
@@ -161,7 +161,7 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Вращение WX"/>
+              <text value="Rotation WX"/>
             </properties>
           </component>
           <component id="7b708" class="javax.swing.JLabel" binding="value30">
@@ -177,7 +177,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Вращение WY"/>
+              <text value="Rotation WY"/>
             </properties>
           </component>
           <component id="be6ea" class="javax.swing.JLabel" binding="value31">
@@ -193,7 +193,7 @@
               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Вращение WZ"/>
+              <text value="Rotation WZ"/>
             </properties>
           </component>
           <component id="ad09a" class="javax.swing.JLabel" binding="value32">
