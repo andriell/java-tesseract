@@ -37,6 +37,14 @@ public class MainFrame {
     private JLabel value31;
     private JTextArea textAreaPoints;
     private JButton resetButton;
+    private JSlider sliderX;
+    private JLabel valueX;
+    private JLabel valueY;
+    private JLabel valueZ;
+    private JLabel valueW;
+    private JSlider sliderY;
+    private JSlider sliderZ;
+    private JSlider sliderW;
 
     Tesseract tesseract;
 
@@ -53,17 +61,27 @@ public class MainFrame {
         frame.setContentPane(rootPanel);
         centerPane.add(new ImagePane(tesseract));
 
-        ChangeListener changeListener = new ChangeListener() {
+        ChangeListener changeListenerRotation = new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 update();
             }
         };
-        slider01.addChangeListener(changeListener);
-        slider02.addChangeListener(changeListener);
-        slider12.addChangeListener(changeListener);
-        slider30.addChangeListener(changeListener);
-        slider31.addChangeListener(changeListener);
-        slider32.addChangeListener(changeListener);
+        slider01.addChangeListener(changeListenerRotation);
+        slider02.addChangeListener(changeListenerRotation);
+        slider12.addChangeListener(changeListenerRotation);
+        slider30.addChangeListener(changeListenerRotation);
+        slider31.addChangeListener(changeListenerRotation);
+        slider32.addChangeListener(changeListenerRotation);
+
+        ChangeListener changeListenerTranslation = new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                update();
+            }
+        };
+        sliderX.addChangeListener(changeListenerTranslation);
+        sliderY.addChangeListener(changeListenerTranslation);
+        sliderZ.addChangeListener(changeListenerTranslation);
+        sliderW.addChangeListener(changeListenerTranslation);
 
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +91,10 @@ public class MainFrame {
                 slider30.setValue(0);
                 slider31.setValue(0);
                 slider32.setValue(0);
+                sliderX.setValue(0);
+                sliderY.setValue(0);
+                sliderZ.setValue(0);
+                sliderW.setValue(0);
                 update();
             }
         });
@@ -128,6 +150,22 @@ public class MainFrame {
         value = slider32.getValue();
         value32.setText(Integer.toString(value));
         tesseract.rotation(3, 2, value);
+
+        value = sliderX.getValue();
+        valueX.setText(Integer.toString(value));
+        tesseract.translation(0, ((double) value) / 100);
+
+        value = sliderY.getValue();
+        valueY.setText(Integer.toString(value));
+        tesseract.translation(1, ((double) value) / 100);
+
+        value = sliderZ.getValue();
+        valueZ.setText(Integer.toString(value));
+        tesseract.translation(2, ((double) value) / 100);
+
+        value = sliderW.getValue();
+        valueW.setText(Integer.toString(value));
+        tesseract.translation(3, ((double) value) / 100);
 
         tesseract.repaint();
         textAreaPoints.setText(tesseract.printVertices());

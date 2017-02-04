@@ -86,6 +86,8 @@ public class Tesseract implements ImagePane.Entity {
             new Color(0,0,255),
     };
 
+    private double[] translation = new double[]{0d, 0d, 0d, 0d};
+
     private double[][] rotation = new double[][]{
             {0d},
             {0d, 0d},
@@ -133,7 +135,7 @@ public class Tesseract implements ImagePane.Entity {
         for (int i = 0; i < vertices.length; i++) {
             verticesNew[i] = new double[vertices[i].length];
             for (int j = 0; j < vertices[i].length; j++) {
-                verticesNew[i][j] = vertices[i][j];
+                verticesNew[i][j] = vertices[i][j] + translation[j];
             }
         }
         for (int i = 3; i >= 0; i--) {
@@ -157,6 +159,13 @@ public class Tesseract implements ImagePane.Entity {
             g.setColor(edgesColor[edges[i][2]]);
             g.drawLine(ints[0], ints[1], ints[2], ints[3]);
         }
+    }
+
+    public void translation(int i, double a) {
+        if (i < 0 || i > 3) {
+            return;
+        }
+        translation[i] = a;
     }
 
     public void rotation(int o1, int o2, double a) {
@@ -202,7 +211,7 @@ public class Tesseract implements ImagePane.Entity {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < verticesNew.length; i++) {
             for (int j = 0; j < verticesNew[i].length; j++) {
-                builder.append(String.format("%05d ", Math.round((verticesNew[i][j] + 2d) * size)));
+                builder.append(String.format("%05d ", Math.round((verticesNew[i][j] + 2d) * 100)));
             }
             builder.append("\n");
         }
