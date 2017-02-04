@@ -45,7 +45,7 @@ public class MainFrame {
     }
 
     public void show() {
-        frame = new JFrame("Gui");
+        frame = new JFrame("Real Tesseract");
         tesseract = new Tesseract();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
