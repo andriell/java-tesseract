@@ -38,40 +38,52 @@ public class Tesseract implements ImagePane.Entity {
     double[][] verticesNew;
 
     private int[][] edges = new int[][]{
-            {0, 1},
-            {1, 2},
-            {2, 3},
-            {3, 0},
-            {4, 5},
-            {5, 6},
-            {6, 7},
-            {7, 4},
-            {0, 4},
-            {1, 5},
-            {2, 6},
-            {3, 7},
+            {0, 1, 0},
+            {1, 2, 0},
+            {2, 3, 0},
+            {3, 0, 0},
+            {4, 5, 1},
+            {5, 6, 1},
+            {6, 7, 1},
+            {7, 4, 1},
+            {0, 4, 2},
+            {1, 5, 2},
+            {2, 6, 2},
+            {3, 7, 2},
 
-            {8, 9},
-            {9, 10},
-            {10, 11},
-            {11, 8},
-            {12, 13},
-            {13, 14},
-            {14, 15},
-            {15, 12},
-            {8, 12},
-            {9, 13},
-            {10, 14},
-            {11, 15},
+            {8,  9,  3},
+            {9,  10, 3},
+            {10, 11, 3},
+            {11, 8,  3},
+            {12, 13, 4},
+            {13, 14, 4},
+            {14, 15, 4},
+            {15, 12, 4},
+            {8,  12, 5},
+            {9,  13, 5},
+            {10, 14, 5},
+            {11, 15, 5},
 
-            {0, 8},
-            {1, 9},
-            {2, 10},
-            {3, 11},
-            {4, 12},
-            {5, 13},
-            {6, 14},
-            {7, 15},
+            {0, 8,  6},
+            {1, 9,  6},
+            {2, 10, 6},
+            {3, 11, 6},
+            {4, 12, 6},
+            {5, 13, 6},
+            {6, 14, 6},
+            {7, 15, 6},
+    };
+
+    private Color[] edgesColor = new Color[] {
+            new Color(255,0,0),
+            new Color(0,255,0),
+            new Color(0,0,255),
+
+            new Color(255,128,128),
+            new Color(128,255,128),
+            new Color(128,128,255),
+
+            new Color(128,128,128),
     };
 
     private double[][] rotation = new double[][]{
@@ -111,6 +123,13 @@ public class Tesseract implements ImagePane.Entity {
         g.setColor(Color.black);
         g.setStroke(stroke);
 
+        g.drawString("XY " + Math.round(rotation[0][1]), 5, 15);
+        g.drawString("XZ " + Math.round(rotation[0][2]), 5, 30);
+        g.drawString("YZ " + Math.round(rotation[1][2]), 5, 45);
+        g.drawString("WX " + Math.round(rotation[3][0]), 50, 15);
+        g.drawString("WY " + Math.round(rotation[3][1]), 50, 30);
+        g.drawString("WZ " + Math.round(rotation[3][2]), 50, 45);
+
         verticesNew = new double[vertices.length][];
         for (int i = 0; i < vertices.length; i++) {
             verticesNew[i] = new double[vertices[i].length];
@@ -120,10 +139,10 @@ public class Tesseract implements ImagePane.Entity {
         }
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (rotation[i][j] == 0d) {
+                if (rotation[i][j] == 0) {
                     continue;
                 }
-                double[][] matrixRotation = matrixRotation(i, j, rotation[i][j]);
+                double[][] matrixRotation = matrixRotation(i, j, rotation[i][j] * Math.PI / 180d);
                 for (int k = 0; k < verticesNew.length; k++) {
                     verticesNew[k] = multiplication(matrixRotation, verticesNew[k]);
                 }
@@ -136,6 +155,7 @@ public class Tesseract implements ImagePane.Entity {
             ints[1] = (int) (size * verticesNew[edges[i][0]][1]) + maxSize / 2;
             ints[2] = (int) (size * verticesNew[edges[i][1]][0]) + maxSize / 2;
             ints[3] = (int) (size * verticesNew[edges[i][1]][1]) + maxSize / 2;
+            g.setColor(edgesColor[edges[i][2]]);
             g.drawLine(ints[0], ints[1], ints[2], ints[3]);
         }
     }
@@ -144,7 +164,7 @@ public class Tesseract implements ImagePane.Entity {
         if (o1 < 0 || o1 > 3 || o2 < 0 || o2 > 3 || o1 == o2) {
             return;
         }
-        rotation[o1][o2] = Math.PI / 180d * a;
+        rotation[o1][o2] = a;
     }
 
     protected double[][] matrixRotation(int o1, int o2, double a) {
