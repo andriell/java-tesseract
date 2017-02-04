@@ -211,7 +211,7 @@ public class Tesseract implements ImagePane.Entity {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < verticesNew.length; i++) {
             for (int j = 0; j < verticesNew[i].length; j++) {
-                builder.append(String.format("%03d ", Math.round((verticesNew[i][j] + 5d) * 100)));
+                builder.append(String.format("%03d    ", Math.round((verticesNew[i][j] + 5d) * 100)));
             }
             builder.append("\n");
         }
