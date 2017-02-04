@@ -21,7 +21,10 @@
         <children>
           <component id="c620e" class="javax.swing.JSlider" binding="slider01">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="400" height="-1"/>
+                <preferred-size width="400" height="-1"/>
+              </grid>
             </constraints>
             <properties>
               <majorTickSpacing value="45"/>
