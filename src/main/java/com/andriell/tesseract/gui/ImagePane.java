@@ -14,6 +14,7 @@ public class ImagePane extends JPanel implements ComponentListener {
     public ImagePane(Entity entity) {
         this.entity = entity;
         this.addComponentListener(this);
+        setBackground(Color.WHITE);
     }
 
     @Override

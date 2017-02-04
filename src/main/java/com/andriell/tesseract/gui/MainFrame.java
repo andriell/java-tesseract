@@ -57,7 +57,7 @@ public class MainFrame {
         tesseract = new Tesseract();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(640, 420);
+        frame.setSize(1044, 875);
         frame.setContentPane(rootPanel);
         centerPane.add(new ImagePane(tesseract));
 
