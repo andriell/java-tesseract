@@ -26,10 +26,12 @@ public class Main {
         public Image(int width, int height) {
             super();
             image = new Tesseract(width, height);
-            image.rotation(0, 1, 1d);
-            image.rotation(1, 2, 1d);
-            image.rotation(2, 3, 1d);
-            image.rotation(3, 4, 1d);
+            image.rotation(0, 1, 45);
+            image.rotation(1, 2, 45);
+            image.rotation(2, 3, 45);
+            image.rotation(3, 0, 45);
+            image.rotation(3, 1, 45);
+            image.rotation(3, 2, 45);
             image.print();
         }
 

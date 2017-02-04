@@ -125,7 +125,7 @@ public class Tesseract extends BufferedImage {
         if (o1 < 0 || o1 > 3 || o2 < 0 || o2 > 3 || o1 == o2) {
             return;
         }
-        rotation[o1][o2] = a;
+        rotation[o1][o2] = Math.PI / 180d * a;
     }
 
     protected double[][] matrixRotation(int o1, int o2, double a) {
@@ -149,7 +149,7 @@ public class Tesseract extends BufferedImage {
         double[] r = new double[vector.length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                r[i] += matrix[i][j] * vector[i];
+                r[i] += matrix[i][j] * vector[j];
             }
         }
         return r;
