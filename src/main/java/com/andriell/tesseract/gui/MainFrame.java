@@ -30,6 +30,7 @@ public class MainFrame {
     private JLabel value30;
     private JLabel value32;
     private JLabel value31;
+    private JTextArea textAreaPoints;
 
     Tesseract tesseract;
 
@@ -39,12 +40,12 @@ public class MainFrame {
 
     public void show() {
         frame = new JFrame("Gui");
-        tesseract = new Tesseract(100);
+        tesseract = new Tesseract();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(740, 460);
+        frame.setSize(640, 420);
         frame.setContentPane(rootPanel);
-        centerPane.add(new ImagePane(tesseract.getImage()));
+        centerPane.add(new ImagePane(tesseract));
 
         ChangeListener changeListener = new ChangeListener() {
             @Override
@@ -93,6 +94,8 @@ public class MainFrame {
         tesseract.rotation(3, 2, value);
 
         tesseract.repaint();
+        textAreaPoints.setText(tesseract.printVertices());
+
         centerPane.repaint();
     }
 }

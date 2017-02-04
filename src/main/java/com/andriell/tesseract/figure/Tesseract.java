@@ -1,14 +1,16 @@
 package com.andriell.tesseract.figure;
 
+import com.andriell.tesseract.gui.ImagePane;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 /**
  * Created by Андрей on 03.02.2017.
  */
-public class Tesseract {
+public class Tesseract implements ImagePane.Entity {
     private BufferedImage image;
+    private Stroke stroke = new BasicStroke(2);
 
     private double size = 100d;
 
@@ -33,6 +35,7 @@ public class Tesseract {
             {-1d, -1d, -1d, -1d},
             {-1d, +1d, -1d, -1d},
     };
+    double[][] verticesNew;
 
     private int[][] edges = new int[][]{
             {0, 1},
@@ -80,9 +83,20 @@ public class Tesseract {
 
     private int maxSize;
 
-    public Tesseract(double size) {
+    public Tesseract() {
+        setSize(size);
+    }
+
+    public void setSize(double size) {
+        this.size = size;
         maxSize = (int) (size * 4 + 10d);
         image = new BufferedImage(maxSize, maxSize, BufferedImage.TYPE_4BYTE_ABGR);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        setSize(Math.min(width, height) / 4);
+        repaint();
     }
 
     public BufferedImage getImage() {
@@ -95,8 +109,9 @@ public class Tesseract {
         g.fillRect(0, 0, maxSize, maxSize);
 
         g.setColor(Color.black);
+        g.setStroke(stroke);
 
-        double[][] verticesNew = new double[vertices.length][];
+        verticesNew = new double[vertices.length][];
         for (int i = 0; i < vertices.length; i++) {
             verticesNew[i] = new double[vertices[i].length];
             for (int j = 0; j < vertices[i].length; j++) {
@@ -121,7 +136,6 @@ public class Tesseract {
             ints[1] = (int) (size * verticesNew[edges[i][0]][1]) + maxSize / 2;
             ints[2] = (int) (size * verticesNew[edges[i][1]][0]) + maxSize / 2;
             ints[3] = (int) (size * verticesNew[edges[i][1]][1]) + maxSize / 2;
-            System.out.println(Arrays.toString(ints));
             g.drawLine(ints[0], ints[1], ints[2], ints[3]);
         }
     }
@@ -158,5 +172,17 @@ public class Tesseract {
             }
         }
         return r;
+    }
+
+    public String printVertices() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < verticesNew.length; i++) {
+            for (int j = 0; j < verticesNew[i].length; j++) {
+                builder.append(Math.round(verticesNew[i][j] * size));
+                builder.append(" ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }
