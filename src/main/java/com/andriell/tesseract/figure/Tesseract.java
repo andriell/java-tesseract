@@ -87,9 +87,9 @@ public class Tesseract implements ImagePane.Entity {
     };
 
     private double[][] rotation = new double[][]{
-            {0d, 0d, 0d, 0d},
-            {0d, 0d, 0d, 0d},
-            {0d, 0d, 0d, 0d},
+            {0d},
+            {0d, 0d},
+            {0d, 0d, 0d},
             {0d, 0d, 0d, 0d},
     };
 
@@ -122,9 +122,9 @@ public class Tesseract implements ImagePane.Entity {
         g.setColor(Color.black);
         g.setStroke(stroke);
 
-        g.drawString("XY " + Math.round(rotation[0][1]), 5, 15);
-        g.drawString("XZ " + Math.round(rotation[0][2]), 5, 30);
-        g.drawString("YZ " + Math.round(rotation[1][2]), 5, 45);
+        g.drawString("XY " + Math.round(rotation[1][0]), 5, 15);
+        g.drawString("XZ " + Math.round(rotation[2][0]), 5, 30);
+        g.drawString("YZ " + Math.round(rotation[2][1]), 5, 45);
         g.drawString("WX " + Math.round(rotation[3][0]), 50, 15);
         g.drawString("WY " + Math.round(rotation[3][1]), 50, 30);
         g.drawString("WZ " + Math.round(rotation[3][2]), 50, 45);
@@ -136,8 +136,8 @@ public class Tesseract implements ImagePane.Entity {
                 verticesNew[i][j] = vertices[i][j];
             }
         }
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 3; i >= 0; i--) {
+            for (int j = i; j >= 0; j--) {
                 if (rotation[i][j] == 0) {
                     continue;
                 }
@@ -163,7 +163,12 @@ public class Tesseract implements ImagePane.Entity {
         if (o1 < 0 || o1 > 3 || o2 < 0 || o2 > 3 || o1 == o2) {
             return;
         }
-        rotation[o1][o2] = a;
+        if (o1 > o2) {
+            rotation[o1][o2] = a;
+        } else {
+            rotation[o2][o1] = a;
+        }
+
     }
 
     protected double[][] matrixRotation(int o1, int o2, double a) {
