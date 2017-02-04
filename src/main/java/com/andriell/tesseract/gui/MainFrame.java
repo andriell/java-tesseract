@@ -44,8 +44,6 @@ public class MainFrame {
         tesseract.rotation(3, 2, 45);
         tesseract.repaint();
 
-        //frame.setContentPane(new ImagePane(tesseract.getImage()));
-
         centerPane.add(new ImagePane(tesseract.getImage()));
 
         frame.setVisible(true);
