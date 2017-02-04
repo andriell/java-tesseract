@@ -2,9 +2,15 @@ package com.andriell.tesseract.gui;
 
 import com.andriell.tesseract.figure.Tesseract;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Андрей on 04.02.2017.
@@ -21,7 +27,6 @@ public class MainFrame {
     private JSlider slider30;
     private JSlider slider31;
     private JSlider slider32;
-    private JButton repaintButton;
     private JButton saveButton;
     private JCheckBox autoCheckBox;
     private JLabel value01;
@@ -31,6 +36,7 @@ public class MainFrame {
     private JLabel value32;
     private JLabel value31;
     private JTextArea textAreaPoints;
+    private JButton resetButton;
 
     Tesseract tesseract;
 
@@ -48,11 +54,8 @@ public class MainFrame {
         centerPane.add(new ImagePane(tesseract));
 
         ChangeListener changeListener = new ChangeListener() {
-            @Override
             public void stateChanged(ChangeEvent e) {
-                if (autoCheckBox.isEnabled()) {
-                    update();
-                }
+                update();
             }
         };
         slider01.addChangeListener(changeListener);
@@ -61,6 +64,39 @@ public class MainFrame {
         slider30.addChangeListener(changeListener);
         slider31.addChangeListener(changeListener);
         slider32.addChangeListener(changeListener);
+
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                slider01.setValue(0);
+                slider02.setValue(0);
+                slider12.setValue(0);
+                slider30.setValue(0);
+                slider31.setValue(0);
+                slider32.setValue(0);
+                update();
+            }
+        });
+
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    tesseract.repaint();
+                    BufferedImage bi = tesseract.getImage();
+                    String fileName = String.format(
+                            "tesseract_%03d_%03d_%03d_%03d_%03d_%03d.png",
+                            slider01.getValue(),
+                            slider02.getValue(),
+                            slider12.getValue(),
+                            slider30.getValue(),
+                            slider31.getValue(),
+                            slider32.getValue()
+                    );
+                    File outputFile = new File(fileName);
+                    outputFile.getParentFile().mkdirs();
+                    ImageIO.write(bi, "png", outputFile);
+                } catch (Exception e2) {}
+            }
+        });
 
         update();
 

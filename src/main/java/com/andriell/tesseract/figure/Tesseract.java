@@ -76,14 +76,14 @@ public class Tesseract implements ImagePane.Entity {
 
     private Color[] edgesColor = new Color[] {
             new Color(255,0,0),
+            new Color(255,0,0),
+            new Color(255,0,0),
+
             new Color(0,255,0),
+            new Color(0,255,0),
+            new Color(0,255,0),
+
             new Color(0,0,255),
-
-            new Color(255,128,128),
-            new Color(128,255,128),
-            new Color(128,128,255),
-
-            new Color(128,128,128),
     };
 
     private double[][] rotation = new double[][]{
@@ -105,7 +105,6 @@ public class Tesseract implements ImagePane.Entity {
         image = new BufferedImage(maxSize, maxSize, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
-    @Override
     public void resize(int width, int height) {
         setSize(Math.min(width, height) / 4);
         repaint();
@@ -198,8 +197,7 @@ public class Tesseract implements ImagePane.Entity {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < verticesNew.length; i++) {
             for (int j = 0; j < verticesNew[i].length; j++) {
-                builder.append(Math.round(verticesNew[i][j] * size));
-                builder.append(" ");
+                builder.append(String.format("%05d ", Math.round((verticesNew[i][j] + 2d) * size)));
             }
             builder.append("\n");
         }
