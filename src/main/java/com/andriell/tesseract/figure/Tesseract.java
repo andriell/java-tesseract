@@ -1,4 +1,4 @@
-package com.andriell.tesseract;
+package com.andriell.tesseract.figure;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,8 +7,11 @@ import java.util.Arrays;
 /**
  * Created by Андрей on 03.02.2017.
  */
-public class Tesseract extends BufferedImage {
-    private double a = 100d;
+public class Tesseract {
+    private BufferedImage image;
+
+    private double size = 100d;
+
     private double[][] vertices = new double[][]{
             {+1d, +1d, +1d, +1d},
             {+1d, -1d, +1d, +1d},
@@ -75,19 +78,21 @@ public class Tesseract extends BufferedImage {
             {0d, 0d, 0d, 0d},
     };
 
-    private int width;
-    private int height;
+    private int maxSize;
 
-    public Tesseract(int width, int height) {
-        super(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        this.width = width;
-        this.height = height;
+    public Tesseract(double size) {
+        maxSize = (int) (size * 4 + 10d);
+        image = new BufferedImage(maxSize, maxSize, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
-    public void print() {
-        Graphics2D g = (Graphics2D) getGraphics();
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void repaint() {
+        Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.white);
-        g.fillRect(0, 0, width, height);
+        g.fillRect(0, 0, maxSize, maxSize);
 
         g.setColor(Color.black);
 
@@ -112,10 +117,10 @@ public class Tesseract extends BufferedImage {
 
         int[] ints = new int[4];
         for (int i = 0; i < edges.length; i++) {
-            ints[0] = (int) (a * verticesNew[edges[i][0]][0]) + width / 2;
-            ints[1] = (int) (a * verticesNew[edges[i][0]][1]) + height / 2;
-            ints[2] = (int) (a * verticesNew[edges[i][1]][0]) + width / 2;
-            ints[3] = (int) (a * verticesNew[edges[i][1]][1]) + height / 2;
+            ints[0] = (int) (size * verticesNew[edges[i][0]][0]) + maxSize / 2;
+            ints[1] = (int) (size * verticesNew[edges[i][0]][1]) + maxSize / 2;
+            ints[2] = (int) (size * verticesNew[edges[i][1]][0]) + maxSize / 2;
+            ints[3] = (int) (size * verticesNew[edges[i][1]][1]) + maxSize / 2;
             System.out.println(Arrays.toString(ints));
             g.drawLine(ints[0], ints[1], ints[2], ints[3]);
         }
